@@ -45,42 +45,56 @@
     <main class="container mt-5 mb-5">
         <div class="row">
             <div class="col-sm">
-                <h3 class="text-center text-uppercase fw-bold">Thêm mới bài viết</h3>
-                <form action="http://localhost:3000/index.php?controller=Article&action=add" method="post" enctype="multipart/form-data">
+                <h3 class="text-center text-uppercase fw-bold">Chỉnh sửa bài viết</h3>
+                <form action="http://localhost:3000/index.php?controller=Article&action=update" method="post" enctype="multipart/form-data">
+                    <div class="input-group mt-3 mb-3">
+                        <span class="input-group-text" id="lblma_bai_viet">Mã bài viết</span>
+                        <input type="text" class="form-control" name="txt_ma_bviet" value = "<?php echo $article_suppliersRow['ma_bviet'] ?>" readonly>
+                    </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lbltieu_de">Tiêu đề</span>
-                        <input type="text" class="form-control" name="txt_tieude" required> <br>
+                        <input type="text" class="form-control" name="txt_tieude" value = "<?php echo $article_suppliersRow['tieude'] ?>"> <br>
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblten_bai_hat">Tên bài hát</span>
-                        <input type="text" class="form-control" name="txt_ten_bhat" required> <br>
+                        <input type="text" class="form-control" name="txt_ten_bhat" value = "<?php echo $article_suppliersRow['ten_bhat'] ?>"> <br>
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblthe_loai">Thể loại:</span>
-                        <select class="form-select" id="the_loai" name="txt_ten_tloai" required>
-                            <?php foreach ($categories as $category): ?>
-                                <option value="<?php echo $category['ma_tloai']; ?>"><?php echo $category['ten_tloai']; ?></option>
-                            <?php endforeach; ?>
+                        <select class="form-select" id="the_loai" name="txt_ma_tloai" value = "<?php echo $article_suppliersRow['ten_tloai'] ?>"required>
+                            <?php 
+                                $sql_category = "SELECT ma_tloai, ten_tloai FROM theloai";
+                                $result_category = $conn->query($sql_category);
+                                while($row = $result_category->fetch_assoc()){
+                                    echo '<option value="' . $row['ma_tloai'] . '">' . $row['ten_tloai'] . '</option>';
+                                } 
+                            ?> 
                         </select><br>
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lbltom_tat">Tóm tắt</span>
-                        <input type="text" class="form-control" name="txt_tomtat" required> <br>
+                        <input type="text" class="form-control" name="txt_tomtat" value = "<?php echo $article_suppliersRow['tomtat'] ?>" required> <br>
                     </div>
+                    
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lbltac_gia">Tác giả:</span>
-                        <select class="form-select" id="tac_gia" name="txt_ten_tgia" required>
-                            <?php foreach ($authors as $author): ?>
-                                <option value="<?php echo $author['ma_tgia']; ?>"><?php echo $author['ten_tgia']; ?></option>
-                            <?php endforeach; ?> 
+                        <select class="form-select" id="tac_gia" name="txt_ma_tgia" value = "<?php echo $article_suppliersRow['ten_tgia'] ?>" required>
+                        <?php 
+                                $sql_author = "SELECT ma_tgia, ten_tgia FROM tacgia";
+                                $result_author = $conn->query($sql_author);
+                                while($row = $result_author->fetch_assoc()){
+                                    echo '<option value="' . $row['ma_tgia'] . '">' . $row['ten_tgia'] . '</option>';
+                                } 
+                            ?> 
                         </select><br>
                     </div>
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblngay_viet">Ngày viết:</span>
-                        <input type="date" class="form-control" name="txt_ngayviet" required> <br>
+                        <input type="date" class="form-control" name="txt_ngayviet" value = "<?php echo $article_suppliersRow['ngayviet'] ?>" required> <br>
                     </div>
+
                     <div class="form-group  float-end ">
-                        <button class="btn btn-primary"><i class="fas fa-save"></i> Thêm </button>
+                        <button  name = "btnEdit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu </button>
                         <a href="http://localhost:3000/index.php?controller=Article&action=index" class="btn btn-warning ">Quay lại</a>
                     </div>
                 </form>
