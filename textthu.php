@@ -1,5 +1,5 @@
 <?php
-require_once 'D:\Study\TLU\Năm ba_Kì 5\Công nghệ web\TH2\Demo_MVC_Simple\btth02v2\services\CategoryService.php';
+require_once 'D:\Study\TLU\Năm ba_Kì 5\Công nghệ web\TH2\Demo_MVC_Simple\CSE485_2023_BTTH02\services\AdminService.php';
 
 $categoryService = new CategoryService();
 $categories = $categoryService->getAllCategories();
